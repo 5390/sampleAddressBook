@@ -1,3 +1,3 @@
 
 set -x
-/opt/api/out/imaterial
+/opt/api/out/addressbook

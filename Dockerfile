@@ -16,12 +16,6 @@ RUN adduser -D -g 'alpine' alpine
 # ----------------------------------------------------------------------------
 
 RUN apk update
-RUN apk add wkhtmltopdf xvfb
-RUN apk add --update --no-cache \
-    libgcc libstdc++ libx11 glib libxrender libxext libintl \
-    ttf-dejavu ttf-droid ttf-freefont ttf-liberation ttf-ubuntu-font-family
-RUN apk add ttf-dejavu ttf-droid ttf-freefont \
-    ttf-liberation ttf-ubuntu-font-family
 
 # ----------------------------------------------------------------------------- 
 # Copy content 
@@ -29,7 +23,7 @@ RUN apk add ttf-dejavu ttf-droid ttf-freefont \
 
 RUN mkdir /opt/api/
 COPY . /opt/api/
-COPY buildScripts/startup.sh /opt/api/
+COPY startup.sh /opt/api/
 
 # ----------------------------------------------------------------------------- 
 # Change owner and permission 
@@ -67,13 +61,13 @@ RUN go mod download
 # Create build 
 # ----------------------------------------------------------------------------- 
 
-RUN go build -o ./out/imaterial .
+RUN go build -o ./out/addressbook .
 
 # ----------------------------------------------------------------------------- 
 # Remove extra files 
 # ----------------------------------------------------------------------------- 
 
-RUN rm -rf buildScripts/ helm/ Jenkinsfile skaffold.yaml Dockerfile .git/
+RUN rm -rf Dockerfile .git/
 
 # ----------------------------------------------------------------------------- 
 # Set ports 
